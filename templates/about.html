@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}about-me{% endblock title %}
+{% block content %}
+{{ block.super }}
+	<!-- about page -->
+	<!-- welcome -->
+	<div class="welcome">
+		<div class="container">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l">پروژه پایان دوره
+				<span class="heading-style">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</h3>
+			<div class="grid_3 grid_4 w3_agileits_icons_page">
+				<div class="icons">
+					<h3 class="agileits-icons-title">مجتمع فنی تهران واحد سعادت آباد</h3>
+					<br>
+					<h3 class="agileits-icons-title">دوره توسعه وب پایتون با جنگو (آنلاین)</h3>
+					<br>
+					<h3 class="agileits-icons-title">استاد جناب آقای مهندس عرفان اسماعیلی شیرازی</h3>
+					<br>
+					<h3 class="agileits-icons-title">دانشپذیر جواد صالحی فر</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //video-->
+	<!-- //about page -->
+{% endblock content %}

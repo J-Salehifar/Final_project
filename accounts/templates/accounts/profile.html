@@ -1,0 +1,98 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load jformat %}
+{% block title %}profile{% endblock title %}
+{% block content %}
+{{ block.super }}
+	<div >
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+				<div class="modal-body modal-body-sub_agile">
+
+					<div class="modal_body_left modal_body_left1">
+						<h3 class="agileinfo_sign">حساب کاربری</h3>
+						<form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% include 'includes/messages.html' %}
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> نام کاربری : </label>
+                                {{ user.username }}
+							</div>
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> نام : </label>
+		    		            {{ user.first_name }}
+							</div>
+                            <div class="styled-input agile-styled-input-top">
+								<label class="control-label"> نام خانوادگی : </label>
+                                {{ user.last_name }}
+							</div>
+   							<div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> پست الکترونیک : </label>
+                                {{ user.email }}
+							</div>                         
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> سن : </label>
+                                {{ user.profile.age }}
+							</div>
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> کد ملی : </label>
+                                {{ user.profile.national_code }}
+							</div>                            
+							<div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> شماره موبایل : </label>
+                                {{ user.profile.mobile_number }}
+							</div>
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> معرفی : </label>
+                                {{ user.profile.bio }}
+							</div>
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> جنسیت : </label>
+								{% if user.profile.gender == 'M' %}
+									آقا
+								{% elif user.profile.gender == 'F' %}
+									خانم
+								{% else %}
+									مشخص نشده است
+								{% endif %}
+							</div>
+							<div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> رزومه : </label>
+								{% if user.profile.resume %}
+									<a href="{{ user.profile.resume.url }}" download > دانلود رزومه </a>
+								{% else %}
+									فایل آپلود نشده است
+								{% endif %}
+							</div>
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> تاریخ عضویت : </label>
+                                {{ user.profile.create_date | jformat:"%H:%M - %Y/%m/%d" }}
+							</div>
+                            <div class="styled-input agile-styled-input-top">
+                                <label class="control-label"> وضعیت : </label>
+                                {% if user.profile.is_auther %}
+									شما در این سایت نویسنده هستید
+								{% else %}
+									شما در این سایت نویسنده نیستید
+								{% endif %}
+							</div>
+							<br>
+							<h3 class="agileinfo_sign">ویرایش حساب کاربری</h3>
+							{{ user_form|crispy }}
+							<br>
+							{{ profile_form|crispy }}
+
+							<input type="submit" value="به روز رسانی">
+						</form>
+						<div class="clearfix"></div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

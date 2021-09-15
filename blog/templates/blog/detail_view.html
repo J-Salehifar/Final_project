@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load jformat %}
+{% load crispy_forms_tags %}
+{% block title %}پست{% endblock %}
+{% block content %}
+{{ block.super }}
+
+	<!-- //page -->
+	<!-- Single Page -->
+	<div class="banner-bootom-w3-agileits">
+		<div class="container">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l">نمایش پست
+				<span class="heading-style">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</h3>
+			<div class="thumb-image">
+				<center>
+					<img src={{ post_detail.img.url }} loading='lazy' data-imagezoom="true" class="img-responsive" alt="post_detail.title">
+				</center>
+			</div>
+			<br>
+			<div class="col-md-12 single-right-left simpleCart_shelfItem">
+				<h3>{{ post_detail.title }}</h3>
+				<div class="single-infoagile">
+					<ul>
+						<li>
+							نویسنده/نویسندگان : {{ post_detail.get_authers }}
+						</li>
+						<li>
+							تاریخ ایجاد : {{ post_detail.get_create_date }}
+						</li>
+						<li>
+							تعداد نظرات : {{ post_detail.comments.count }}
+						</li>					
+					</ul>
+				</div>
+				<br>
+				<div>
+					{{ post_detail.description | safe }}
+				</div>
+				<br>
+					<a href={% url 'blog:post_view' %}>بازگشت...</a>
+				<hr>
+			</div>
+			<h3>نظر کاربران : </h3>
+			<hr>
+			{% for comment in comments %}
+				<div class="col-md-12 single-right-left simpleCart_shelfItem">
+					<div class="single-infoagile">
+						<ul>
+							<li>
+								{{ comment.user }}
+							</li>
+							<li>
+								{{ comment.get_create_date }}
+							</li>
+							<li>
+								{{ comment.budy }}
+							</li>					
+						</ul>
+					</div>
+					<br>
+				</div>
+			{% endfor %}
+			<hr>
+			{% if request.user.is_authenticated %}
+				<div class="wthree-help" >
+					<div class="col-xs-12 agile-right-help">
+						<div class="col-xs-2 agile-right-help">
+						</div>
+						<div class="col-xs-10 agile-right-help">
+							<h3>ارسال نظر جدید : </h3>
+							<br>
+							<form method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								{% include 'includes/messages.html' %}
+								<div class="styled-input agile-styled-input-top">
+									{{ form|crispy }}
+								</div>
+								<input type="submit" value="ارسال نظر">
+							</form>
+						</div>
+					</div>
+				</div>			
+			{% endif %}
+		</div>
+	</div>
+	<!-- //Single Page -->
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+

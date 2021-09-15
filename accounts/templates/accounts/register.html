@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%  block title %}register{% endblock title %}
+{% block content %}
+{{ block.super }}
+	<div >
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+				<div class="modal-body modal-body-sub_agile">
+					<div class="modal_body_left modal_body_left1">
+						<h3 class="agileinfo_sign">ثبت نام</h3>
+						<form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+							{% include 'includes/messages.html' %}
+                            <div class="styled-input agile-styled-input-top">
+								{{ form|crispy }}
+							</div>
+							<input type="submit" value="ثبت نام">
+						</form>
+                        <br>
+							حساب کاربری دارید؟
+							<a href={% url 'accounts:login' %}>
+								ورود به حساب کاربری</a>
+						<div class="clearfix"></div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

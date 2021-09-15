@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load jformat %}
+{% load crispy_forms_tags %}
+{% block title %}پست ها{% endblock %}
+{% block content %}
+{{ block.super }}
+<div class="ads-grid">
+	<div class="faqs-w3l">
+		<div class="container">
+			<h3 class="tittle-w3l">پست ها
+				<span class="heading-style">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</h3>			
+			<!-- //tittle heading -->
+            {% for post in published_posts %}
+				<div class="wthree-help">
+					<div class="col-xs-12 agile-right-help">
+						<div class="col-xs-2 agile-right-help">
+							<img src={{ post.img.url }} alt={{ post.title }} loading="lazy" height="100" width="100">
+						</div>
+						<div class="col-xs-10 agile-right-help">
+						<p>
+							<h3 class="w3-head">{{ post.title }}</h3>
+							<h4 class="w3-head">نویسنده/نویسندگان : {{ post.get_authers }}</h4>
+							<br>
+							<h4 class="w3-head">زمان ایجاد پست : {{ post.get_create_date }}</h4>
+							<br>
+							<h4 class="w3-head">تعداد نظرات : {{ post.comments.count }}</h4>
+							<br>
+							<h4 class="w3-head">خلاصه متن : {{ post.short_description }}</h4>
+							<br>
+							<a href='/blog/detail_view/{{ post.slug }}'>ادامه مطلب</a>
+						</p>					
+							<br>					
+							<hr>					
+							<br>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			<hr>
+			{% if request.user.is_authenticated %}
+				<div class="wthree-help" >
+					<div class="col-xs-12 agile-right-help">
+						<div class="col-xs-2 agile-right-help">
+						</div>
+						<div class="col-xs-10 agile-right-help">
+							<h3>ایجاد پست جدید : </h3>
+							<br>
+							<form method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								{% include 'includes/messages.html' %}
+								<div class="styled-input agile-styled-input-top">
+									{{ form|crispy }}
+								</div>
+								<input type="submit" value="ایجاد پست">
+							</form>
+						</div>
+					</div>
+				</div>			
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock content %}
+
+
